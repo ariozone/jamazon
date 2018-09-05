@@ -88,3 +88,26 @@ var app = {
     item: null
   }
 }
+function singleCardBuilder(brand, name, price, image) {
+  var card = document.createElement('div')
+  card.setAttribute('class', 'card')
+  var cardBody = document.createElement('div')
+  cardBody.setAttribute('class', 'card-body')
+  var $brand = document.createElement('p')
+  $brand.textContent = brand
+  $brand.setAttribute('class', 'card-text')
+  var $name = document.createElement('p')
+  $name.setAttribute('class', 'card-title')
+  $name.textContent = name
+  var $price = document.createElement('p')
+  $price.setAttribute('class', 'card-text')
+  $price.textContent = price
+  var $image = document.createElement('img')
+  $image.setAttribute('class', 'card-img-top')
+  $image.setAttribute('src', image)
+  card.appendChild($image)
+  card.appendChild(cardBody)
+  cardBody.appendChild($brand)
+  cardBody.appendChild($name)
+  cardBody.appendChild($price)
+}
