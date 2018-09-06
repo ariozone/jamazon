@@ -20,7 +20,8 @@ var app = {
         description: 'A hand drum for people who like belly dancing.',
         details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         origin: 'Turkey',
-        imageUrl: 'https://goo.gl/Q7X6VB'
+        imageUrl: 'https://www.mydukkan.com/media/image/33108/Vatan.Vatan3025K33108.jpg'
+        // 'https://goo.gl/Q7X6VB'
       },
       {
         itemId: 3,
@@ -97,15 +98,15 @@ function singleCardBuilder(brand, name, price, image) {
   card.setAttribute('class', 'card')
   var cardBody = document.createElement('div')
   cardBody.setAttribute('class', 'card-body')
-  var $brand = document.createElement('p')
+  var $brand = document.createElement('h5')
   $brand.textContent = brand
   $brand.setAttribute('class', 'card-text')
-  var $name = document.createElement('p')
+  var $name = document.createElement('h3')
   $name.setAttribute('class', 'card-title')
   $name.textContent = name
-  var $price = document.createElement('p')
+  var $price = document.createElement('h6')
   $price.setAttribute('class', 'card-text')
-  $price.textContent = '$' + price
+  $price.textContent = 'Price: $' + price
   var $image = document.createElement('img')
   $image.setAttribute('class', 'card-img-top')
   $image.setAttribute('src', image)
@@ -123,16 +124,19 @@ function catalogBuilder(catalog) {
   $container.setAttribute('class', 'container')
   var $heading = document.createElement('h1')
   $heading.textContent = 'Jamazon'
+  var $deck = document.createElement('div')
+  $deck.setAttribute('class', 'card-deck')
   var rowDiv = document.createElement('div')
-  rowDiv.setAttribute('class', 'row')
+  rowDiv.setAttribute('class', 'row no-gutters')
   for (var i = 0; i < $cards.length; i++) {
     var $col = document.createElement('div')
-    $col.setAttribute('class', 'col-sm-3')
+    $col.setAttribute('class', 'col-md-3')
     $col.appendChild(singleCardBuilder($cards[i].brand, $cards[i].name, $cards[i].price, $cards[i].imageUrl))
     rowDiv.appendChild($col)
   }
   $container.appendChild($heading)
-  $container.appendChild(rowDiv)
+  $container.appendChild($deck)
+  $deck.appendChild(rowDiv)
   return $container
 }
 
