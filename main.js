@@ -88,6 +88,9 @@ var app = {
     item: null
   }
 }
+var $cat = app.catalog
+var $cards = $cat.items
+
 function singleCardBuilder(brand, name, price, image) {
   var card = document.createElement('div')
   card.setAttribute('class', 'card')
@@ -101,7 +104,7 @@ function singleCardBuilder(brand, name, price, image) {
   $name.textContent = name
   var $price = document.createElement('p')
   $price.setAttribute('class', 'card-text')
-  $price.textContent = price
+  $price.textContent = '$' + price
   var $image = document.createElement('img')
   $image.setAttribute('class', 'card-img-top')
   $image.setAttribute('src', image)
@@ -110,4 +113,26 @@ function singleCardBuilder(brand, name, price, image) {
   cardBody.appendChild($brand)
   cardBody.appendChild($name)
   cardBody.appendChild($price)
+
+  return card
 }
+
+function catalogBuilder(catalog) {
+  var $container = document.createElement('div')
+  $container.setAttribute('class', 'container')
+  var $heading = document.createElement('h1')
+  $heading.textContent = 'Jamazon'
+  var rowDiv = document.createElement('div')
+  rowDiv.setAttribute('class', 'row')
+  for (var i = 0; i < $cards.length; i++) {
+    var $col = document.createElement('div')
+    $col.setAttribute('class', 'col-sm-3')
+    $col.appendChild(singleCardBuilder($cards[i].brand, $cards[i].name, $cards[i].price, $cards[i].imageUrl))
+    rowDiv.appendChild($col)
+  }
+  $container.appendChild($heading)
+  $container.appendChild(rowDiv)
+  return $container
+}
+var $catalog = catalogBuilder($cat)
+document.body.appendChild($catalog)
