@@ -120,6 +120,7 @@ function catalogBuilder(data) {
   $container.setAttribute('class', 'container')
   var $heading = document.createElement('h1')
   $heading.classList.add('p-5')
+  $heading.classList.add('text-center')
   $heading.textContent = 'Jamazon'
   var $deck = document.createElement('div')
   $deck.setAttribute('class', 'card-deck')
