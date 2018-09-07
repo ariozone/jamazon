@@ -148,9 +148,18 @@ function renderApp(state) {
 renderApp(app)
 
 function renderCatalogItem(catalogItem) {
-  var styledCard = singleCardBuilder(catalogItem)
-  // document.body.appendChild(styledCard)
-  console.log(styledCard)
+  var styledCard = document.querySelector('.card')
+  var $h3 = document.createElement('h3')
+  $h3.textContent = catalogItem.description
+  var $details = document.createElement('p')
+  $details.textContent = catalogItem.details
+  var $origin = document.createElement('h6')
+  $origin.textContent = catalogItem.origin
+  styledCard.appendChild($h3)
+  styledCard.appendChild($details)
+  styledCard.appendChild($origin)
+  styledCard.setAttribute('data-item-id', '')
+  return styledCard
 }
 
 function match(id, items) {
