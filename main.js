@@ -89,26 +89,26 @@ var app = {
   }
 }
 
-var $cat = app.catalog
-var $cards = $cat.items
+// var $cat = app.catalog
+//var $card = app.catalog.items
 
-function singleCardBuilder(brand, name, price, image) {
+function singleCardBuilder(info) {
   var card = document.createElement('div')
   card.setAttribute('class', 'card')
   var cardBody = document.createElement('div')
   cardBody.setAttribute('class', 'card-body')
   var $brand = document.createElement('h5')
-  $brand.textContent = brand
+  $brand.textContent = info.brand
   $brand.setAttribute('class', 'card-text')
   var $name = document.createElement('h3')
   $name.setAttribute('class', 'card-title')
-  $name.textContent = name
+  $name.textContent = info.name
   var $price = document.createElement('h6')
   $price.setAttribute('class', 'card-text')
-  $price.textContent = 'Price: $' + price
+  $price.textContent = 'Price: $' + info.price
   var $image = document.createElement('img')
   $image.setAttribute('class', 'card-img-top')
-  $image.setAttribute('src', image)
+  $image.setAttribute('src', info.imageUrl)
   card.appendChild($image)
   card.appendChild(cardBody)
   cardBody.appendChild($brand)
@@ -118,7 +118,7 @@ function singleCardBuilder(brand, name, price, image) {
   return card
 }
 
-function catalogBuilder(catalog) {
+function catalogBuilder(data) {
   var $container = document.createElement('div')
   $container.setAttribute('class', 'container')
   var $heading = document.createElement('h1')
@@ -127,10 +127,10 @@ function catalogBuilder(catalog) {
   $deck.setAttribute('class', 'card-deck')
   var rowDiv = document.createElement('div')
   rowDiv.setAttribute('class', 'row no-gutters')
-  for (var i = 0; i < $cards.length; i++) {
+  for (var i = 0; i < app.catalog.items.length; i++) {
     var $col = document.createElement('div')
     $col.setAttribute('class', 'col-md-3')
-    $col.appendChild(singleCardBuilder($cards[i].brand, $cards[i].name, $cards[i].price, $cards[i].imageUrl))
+    $col.appendChild(singleCardBuilder(data.items[i]))
     rowDiv.appendChild($col)
   }
   $container.appendChild($heading)
@@ -139,7 +139,7 @@ function catalogBuilder(catalog) {
   return $container
 }
 
-var $catalog = catalogBuilder($cat)
+var $catalog = catalogBuilder(app.catalog)
 document.body.appendChild($catalog)
 
 function renderApp(state) {
