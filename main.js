@@ -144,7 +144,7 @@ var $catalog = catalogBuilder($cat)
 document.body.appendChild($catalog)
 
 function renderApp(state) {
-  var $view = document.querySelector('body')
+  var $view = document.querySelector('[data-view="catalog"]')
   if (state.view === 'catalog') {
     $view.innerHTML = ''
     $view.appendChild(catalogBuilder(state.catalog))
