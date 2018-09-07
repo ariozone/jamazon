@@ -137,6 +137,8 @@ function catalogBuilder(data) {
   $deck.appendChild(rowDiv)
   return $container
 }
+// var $cat = catalogBuilder(app.catalog)
+// document.body.appendChild($cat)
 
 function renderApp(state) {
   var $view = document.querySelector('[data-view="catalog"]')
@@ -158,7 +160,7 @@ function renderCatalogItem(catalogItem) {
   styledCard.appendChild($h3)
   styledCard.appendChild($details)
   styledCard.appendChild($origin)
-  styledCard.setAttribute('data-item-id', '')
+  styledCard.setAttribute('data-item-id', catalogItem.itemId)
   return styledCard
 }
 
@@ -169,3 +171,14 @@ function match(id, items) {
     }
   }
 }
+
+var $catalog = document.querySelector('[data-view="catalog"]')
+$catalog.addEventListener('click', function (e) {
+  var drum = e.target.closest('[data-item-id]')
+  if (!drum) return
+  var $itemId = drum.getAttribute('itemId')
+  var selectedDrum = match($itemId, app.catalog.items)
+  app.view = 'details'
+  app.details.item = selectedDrum
+  renderApp(app)
+})
