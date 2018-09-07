@@ -93,7 +93,7 @@ function singleCardBuilder(info) {
   var card = document.createElement('div')
   card.setAttribute('class', 'card item-card p-3 mt-2 mx-1')
   var cardBody = document.createElement('div')
-  cardBody.setAttribute('class', 'card-body')
+  cardBody.setAttribute('class', 'card-body item-card-body')
   var $brand = document.createElement('h5')
   $brand.textContent = info.brand
   $brand.setAttribute('class', 'card-text')
@@ -119,6 +119,7 @@ function catalogBuilder(data) {
   var $container = document.createElement('div')
   $container.setAttribute('class', 'container')
   var $heading = document.createElement('h1')
+  $heading.classList.add('p-5')
   $heading.textContent = 'Jamazon'
   var $deck = document.createElement('div')
   $deck.setAttribute('class', 'card-deck')
