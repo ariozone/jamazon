@@ -89,9 +89,6 @@ var app = {
   }
 }
 
-// var $cat = app.catalog
-//var $card = app.catalog.items
-
 function singleCardBuilder(info) {
   var card = document.createElement('div')
   card.setAttribute('class', 'card')
@@ -127,7 +124,7 @@ function catalogBuilder(data) {
   $deck.setAttribute('class', 'card-deck')
   var rowDiv = document.createElement('div')
   rowDiv.setAttribute('class', 'row no-gutters')
-  for (var i = 0; i < app.catalog.items.length; i++) {
+  for (var i = 0; i < data.items.length; i++) {
     var $col = document.createElement('div')
     $col.setAttribute('class', 'col-md-3')
     $col.appendChild(singleCardBuilder(data.items[i]))
