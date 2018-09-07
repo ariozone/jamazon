@@ -91,7 +91,7 @@ var app = {
 
 function singleCardBuilder(info) {
   var card = document.createElement('div')
-  card.setAttribute('class', 'card')
+  card.setAttribute('class', 'card item-card p-3 mt-2 mx-1')
   var cardBody = document.createElement('div')
   cardBody.setAttribute('class', 'card-body')
   var $brand = document.createElement('h5')
@@ -104,7 +104,7 @@ function singleCardBuilder(info) {
   $price.setAttribute('class', 'card-text')
   $price.textContent = 'Price: $' + info.price
   var $image = document.createElement('img')
-  $image.setAttribute('class', 'card-img-top')
+  $image.setAttribute('class', 'card-img-top card-img')
   $image.setAttribute('src', info.imageUrl)
   card.appendChild($image)
   card.appendChild(cardBody)
@@ -135,9 +135,6 @@ function catalogBuilder(data) {
   $deck.appendChild(rowDiv)
   return $container
 }
-
-var $catalog = catalogBuilder(app.catalog)
-document.body.appendChild($catalog)
 
 function renderApp(state) {
   var $view = document.querySelector('[data-view="catalog"]')
