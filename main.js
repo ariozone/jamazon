@@ -147,8 +147,16 @@ function renderApp(state) {
 }
 renderApp(app)
 
- function renderCatalogItem(catalogItem) {
- var styledCard = singleCardBuilder(catalogItem)
-// document.body.appendChild(styledCard)
- console.log(styledCard)
- }
+function renderCatalogItem(catalogItem) {
+  var styledCard = singleCardBuilder(catalogItem)
+  // document.body.appendChild(styledCard)
+  console.log(styledCard)
+}
+
+function match(id, items) {
+  for (var i = 0; i < items.length; i++) {
+    if (id === items[i].itemId) {
+      return items[i]
+    }
+  }
+}
