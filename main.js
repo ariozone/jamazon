@@ -92,6 +92,7 @@ var app = {
 function singleCardBuilder(info) {
   var card = document.createElement('div')
   card.setAttribute('class', 'card item-card p-3 mt-2 mx-1')
+  card.setAttribute('data-item-id', info.itemId)
   var cardBody = document.createElement('div')
   cardBody.setAttribute('class', 'card-body item-card-body')
   var $brand = document.createElement('h5')
@@ -141,13 +142,12 @@ function catalogBuilder(data) {
 // document.body.appendChild($cat)
 
 function renderApp(state) {
-  var $view = document.querySelector('[data-view="catalog"]')
+  var $view = document.querySelector('[data-view="' + state.view + '"]')
   if (state.view === 'catalog') {
     $view.innerHTML = ''
     $view.appendChild(catalogBuilder(state.catalog))
   }
 }
-renderApp(app)
 
 function renderCatalogItem(catalogItem) {
   var styledCard = document.querySelector('.card')
@@ -160,7 +160,6 @@ function renderCatalogItem(catalogItem) {
   styledCard.appendChild($h3)
   styledCard.appendChild($details)
   styledCard.appendChild($origin)
-  styledCard.setAttribute('data-item-id', catalogItem.itemId)
   return styledCard
 }
 
@@ -172,13 +171,14 @@ function match(id, items) {
   }
 }
 
-var $catalog = document.querySelector('[data-view="catalog"]')
-$catalog.addEventListener('click', function (e) {
+document.querySelector('[data-view="catalog"]').addEventListener('click', function (e) {
   var drum = e.target.closest('[data-item-id]')
   if (!drum) return
-  var $itemId = drum.getAttribute('itemId')
+  var $itemId = drum.getAttribute('data-item-id')
   var selectedDrum = match($itemId, app.catalog.items)
-  app.view = 'details'
   app.details.item = selectedDrum
+  app.view = 'details'
   renderApp(app)
-})
+}
+)
+renderApp(app)
