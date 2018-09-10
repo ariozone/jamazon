@@ -138,8 +138,6 @@ function catalogBuilder(data) {
   $deck.appendChild(rowDiv)
   return $container
 }
-// var $cat = catalogBuilder(app.catalog)
-// document.body.appendChild($cat)
 
 function renderApp(state) {
   var $view = document.querySelector('[data-view="' + state.view + '"]')
@@ -181,7 +179,7 @@ function renderCatalogItem(catalogItem) {
   $h3.textContent = catalogItem.brand
   var $h6 = document.createElement('h6')
   $h6.setAttribute('class', 'card-subtitle')
-  $h6.textContent = '$' + catalogItem.price
+  $h6.textContent = 'Price: $' + catalogItem.price
   var description = document.createElement('p')
   description.setAttribute('class', 'card-text')
   description.textContent = catalogItem.description
@@ -214,7 +212,6 @@ function match(id, items) {
     }
   }
 }
-var selectedDrum
 var $catalog = document.querySelector('[data-view = "catalog"]')
 $catalog.addEventListener('click', function (e) {
   var drum = e.target.closest('[data-item-id]')
@@ -222,7 +219,7 @@ $catalog.addEventListener('click', function (e) {
   app.view = 'details'
   var $itemId = drum.getAttribute('data-item-id')
   var id = parseInt($itemId, 10)
-  selectedDrum = match(id, app.catalog.items)
+  var selectedDrum = match(id, app.catalog.items)
   app.details.item = selectedDrum
   renderApp(app)
 }
