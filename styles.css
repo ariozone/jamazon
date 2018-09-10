@@ -21,3 +21,11 @@ h1 {
   font-family: 'Chango', cursive;
   font-size: 60px;
 }
+
+.hidden {
+  display: none;
+}
+
+h3 {
+  padding: 10px;
+}

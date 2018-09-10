@@ -92,6 +92,7 @@ var app = {
 function singleCardBuilder(info) {
   var card = document.createElement('div')
   card.setAttribute('class', 'card item-card p-3 mt-2 mx-1')
+  card.setAttribute('data-item-id', info.itemId)
   var cardBody = document.createElement('div')
   cardBody.setAttribute('class', 'card-body item-card-body')
   var $brand = document.createElement('h5')
@@ -139,10 +140,102 @@ function catalogBuilder(data) {
 }
 
 function renderApp(state) {
-  var $view = document.querySelector('[data-view="catalog"]')
+  var $view = document.querySelector('[data-view="' + state.view + '"]')
   if (state.view === 'catalog') {
     $view.innerHTML = ''
     $view.appendChild(catalogBuilder(state.catalog))
   }
+  if (state.view === 'details') {
+    $view.innerHTML = ''
+    $view.appendChild(renderCatalogItem(state.details.item))
+  }
+  showView(state.view)
 }
 renderApp(app)
+
+function renderCatalogItem(catalogItem) {
+  var styledCard = document.createElement('div')
+  styledCard.setAttribute('class', 'container my-5')
+  var $row = document.createElement('row')
+  $row.setAttribute('class', 'row')
+  var $shadow = document.createElement('div')
+  $shadow.setAttribute('class', 'card shadow-sm')
+  $row.appendChild($shadow)
+  var $row1 = document.createElement('div')
+  $row1.setAttribute('class', 'row no-gutters')
+  var $imgCol = document.createElement('div')
+  $imgCol.setAttribute('class', 'col-lg-4')
+  var $img = document.createElement('img')
+  $img.setAttribute('class', 'img-responsive w-100')
+  $img.setAttribute('src', catalogItem.imageUrl)
+  var $col = document.createElement('div')
+  $col.setAttribute('class', 'col')
+  var body = document.createElement('div')
+  body.setAttribute('class', 'card-body')
+  var $h1 = document.createElement('h1')
+  $h1.setAttribute('class', 'card-title')
+  $h1.textContent = catalogItem.name
+  var $h3 = document.createElement('h3')
+  $h3.setAttribute('class', 'card-subtitle')
+  $h3.textContent = catalogItem.brand
+  var $h6 = document.createElement('h6')
+  $h6.setAttribute('class', 'card-subtitle')
+  $h6.textContent = 'Price: $' + catalogItem.price
+  var description = document.createElement('p')
+  description.setAttribute('class', 'card-text')
+  description.textContent = catalogItem.description
+  var $details = document.createElement('p')
+  $details.setAttribute('class', 'card-text')
+  $details.textContent = catalogItem.details
+  var $origin = document.createElement('h6')
+  $origin.setAttribute('class', 'card-text')
+  $origin.textContent = catalogItem.origin
+
+  body.appendChild($h1)
+  body.appendChild($h3)
+  body.appendChild($h6)
+  body.appendChild(description)
+  body.appendChild($details)
+  body.appendChild($origin)
+  $col.appendChild(body)
+  $imgCol.appendChild($img)
+  $row1.appendChild($col)
+  $row1.appendChild($imgCol)
+  $shadow.appendChild($row1)
+  styledCard.appendChild($row)
+  return styledCard
+}
+
+function match(id, items) {
+  for (var i = 0; i < items.length; i++) {
+    if (id === items[i].itemId) {
+      return items[i]
+    }
+  }
+}
+var $catalog = document.querySelector('[data-view = "catalog"]')
+$catalog.addEventListener('click', function (e) {
+  var drum = e.target.closest('[data-item-id]')
+  if (!drum) return
+  app.view = 'details'
+  var $itemId = drum.getAttribute('data-item-id')
+  var id = parseInt($itemId, 10)
+  var selectedDrum = match(id, app.catalog.items)
+  app.details.item = selectedDrum
+  renderApp(app)
+}
+)
+
+
+function showView(view) {
+  var views = document.querySelectorAll('[data-view]')
+  for (var i = 0; i < views.length; i++) {
+    var $view = views[i]
+    if (view !== views[i].getAttribute('data-view')) {
+      $view.classList.add('hidden')
+    }
+    else {
+      $view.classList.remove('hidden')
+    }
+  }
+}
