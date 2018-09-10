@@ -156,7 +156,7 @@ function renderApp(state) {
 
 function renderCatalogItem(catalogItem) {
   var styledCard = document.createElement('div')
-  styledCard.setAttribute('class', 'container')
+  styledCard.setAttribute('class', 'container my-5')
   var $row = document.createElement('row')
   $row.setAttribute('class', 'row')
   var $shadow = document.createElement('div')
@@ -228,7 +228,6 @@ $catalog.addEventListener('click', function (e) {
 }
 )
 renderApp(app)
-
 
 function showView(view) {
   var views = document.querySelectorAll('[data-view]')
