@@ -21,3 +21,6 @@ h1 {
   font-family: 'Chango', cursive;
   font-size: 60px;
 }
+.hidden {
+  display: none;
+}
