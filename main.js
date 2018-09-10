@@ -151,6 +151,7 @@ function renderApp(state) {
   }
   showView(state.view)
 }
+renderApp(app)
 
 function renderCatalogItem(catalogItem) {
   var styledCard = document.createElement('div')
@@ -224,7 +225,7 @@ $catalog.addEventListener('click', function (e) {
   renderApp(app)
 }
 )
-renderApp(app)
+
 
 function showView(view) {
   var views = document.querySelectorAll('[data-view]')
