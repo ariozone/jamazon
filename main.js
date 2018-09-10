@@ -182,3 +182,16 @@ document.querySelector('[data-view="catalog"]').addEventListener('click', functi
 }
 )
 renderApp(app)
+
+function hideView(view) {
+  var views = document.querySelectorAll('[data-view]')
+  for (var i = 0; i < views.length; i++) {
+    var $view = views[i]
+    if (view !== views.getAttribute('data-view')) {
+      $view.classList.add('hidden')
+    }
+    else {
+      $view.classList.remove('hidden')
+    }
+  }
+}
