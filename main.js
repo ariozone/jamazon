@@ -239,7 +239,6 @@ $catalog.addEventListener('click', function (e) {
 var $details = document.querySelector('[data-view = "details"]')
 $details.addEventListener('click', function (e) {
   var add = e.target.closest('.btn')
-  console.log(add)
   if (!add) return
   app.cart.push(app.details.item)
 })
