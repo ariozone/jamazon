@@ -1,4 +1,5 @@
 var app = {
+
   view: 'catalog',
   catalog: {
     items: [
@@ -86,7 +87,8 @@ var app = {
   },
   details: {
     item: null
-  }
+  },
+  cart: []
 }
 
 function singleCardBuilder(info) {
@@ -144,10 +146,13 @@ function renderApp(state) {
   if (state.view === 'catalog') {
     $view.innerHTML = ''
     $view.appendChild(catalogBuilder(state.catalog))
+    $view.appendChild(shoppingCart(state.cart))
   }
+
   if (state.view === 'details') {
     $view.innerHTML = ''
     $view.appendChild(renderCatalogItem(state.details.item))
+    $view.appendChild(shoppingCart(state.cart))
   }
   showView(state.view)
 }
@@ -178,9 +183,6 @@ function renderCatalogItem(catalogItem) {
   var $h3 = document.createElement('h3')
   $h3.setAttribute('class', 'card-subtitle')
   $h3.textContent = catalogItem.brand
-  var $h6 = document.createElement('h6')
-  $h6.setAttribute('class', 'card-subtitle')
-  $h6.textContent = 'Price: $' + catalogItem.price
   var description = document.createElement('p')
   description.setAttribute('class', 'card-text')
   description.textContent = catalogItem.description
@@ -190,10 +192,16 @@ function renderCatalogItem(catalogItem) {
   var $origin = document.createElement('h6')
   $origin.setAttribute('class', 'card-text')
   $origin.textContent = catalogItem.origin
+  var $h6 = document.createElement('h6')
+  $h6.setAttribute('class', 'card-subtitle')
+  $h6.textContent = 'Price: $' + catalogItem.price
+  var $button = document.createElement('button')
+  $button.setAttribute('class', 'btn btn-primary')
+  $button.setAttribute('id', 'add')
+  $button.textContent = 'ADD TO CART'
 
   body.appendChild($h1)
   body.appendChild($h3)
-  body.appendChild($h6)
   body.appendChild(description)
   body.appendChild($details)
   body.appendChild($origin)
@@ -203,6 +211,8 @@ function renderCatalogItem(catalogItem) {
   $row1.appendChild($imgCol)
   $shadow.appendChild($row1)
   styledCard.appendChild($row)
+  body.appendChild($h6)
+  body.appendChild($button)
   return styledCard
 }
 
@@ -225,7 +235,13 @@ $catalog.addEventListener('click', function (e) {
   renderApp(app)
 }
 )
-
+var $details = document.querySelector('[data-view = "details"]')
+$details.addEventListener('click', function (e) {
+  var add = e.target.closest('.btn')
+  if (!add) return
+  app.cart.push(app.details.item)
+  renderApp(app)
+})
 
 function showView(view) {
   var views = document.querySelectorAll('[data-view]')
@@ -238,4 +254,12 @@ function showView(view) {
       $view.classList.remove('hidden')
     }
   }
+}
+
+function shoppingCart(cartObj) {
+  var cart = document.createElement('div')
+  cart.setAttribute('class', 'cart')
+  var counter = cartObj.length
+  cart.textContent = 'Cart (' + counter + ')'
+  return cart
 }
