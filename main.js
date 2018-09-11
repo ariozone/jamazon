@@ -153,6 +153,10 @@ function renderApp(state) {
     $view.innerHTML = ''
     $view.appendChild(renderCatalogItem(state.details.item))
   }
+  if (state.view === 'cart') {
+    $view.innerHTML = ''
+    $view.appendChild(shoppingCart(state.cart))
+  }
   showView(state.view)
 }
 renderApp(app)
@@ -247,7 +251,7 @@ function showView(view) {
 function shoppingCart (cartObj) {
   var cart = document.createElement('div')
   cart.setAttribute('class', 'cart')
-  var counter = app.cart.length
+  var counter = app.cartObj.length
   cart.textContent = 'Cart (' + counter + ')'
   return cart
 }
