@@ -1,4 +1,7 @@
 var app = {
+  card: {
+
+  },
   view: 'catalog',
   catalog: {
     items: [
