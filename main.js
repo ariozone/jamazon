@@ -150,13 +150,18 @@ function renderApp(state) {
   if (state.view === 'details') {
     $view.innerHTML = ''
     $view.appendChild(renderCatalogItem(state.details.item))
-  }
-  if (state.view === 'cart') {
-    $view.innerHTML = ''
     $view.appendChild(shoppingCart(state.cart))
   }
+  /*
+  if (state.view === 'cart') {
+    $view.innerHTML = ''
+    $details.appendChild(shoppingCart(state.cart))
+  }
+  */
+
   showView(state.view)
 }
+
 renderApp(app)
 
 function renderCatalogItem(catalogItem) {
@@ -241,6 +246,8 @@ $details.addEventListener('click', function (e) {
   var add = e.target.closest('.btn')
   if (!add) return
   app.cart.push(app.details.item)
+  // app.view = 'cart'
+  renderApp(app)
 })
 function showView(view) {
   var views = document.querySelectorAll('[data-view]')
@@ -255,10 +262,10 @@ function showView(view) {
   }
 }
 
-function shoppingCart (cartObj) {
+function shoppingCart(cartObj) {
   var cart = document.createElement('div')
-  cart.setAttribute('class', 'cart')
-  var counter = app.cartObj.length
+  cart.setAttribute('class', 'alert alert-secondary')
+  var counter = cartObj.length
   cart.textContent = 'Cart (' + counter + ')'
   return cart
 }
