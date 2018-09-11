@@ -198,10 +198,12 @@ function renderCatalogItem(catalogItem) {
   var $h6 = document.createElement('h6')
   $h6.setAttribute('class', 'card-subtitle')
   $h6.textContent = 'Price: $' + catalogItem.price
+  var $button = document.createElement('button')
+  $button.setAttribute('class', 'btn btn-primary')
+  $button.textContent = 'ADD'
 
   body.appendChild($h1)
   body.appendChild($h3)
-  body.appendChild($h6)
   body.appendChild(description)
   body.appendChild($details)
   body.appendChild($origin)
@@ -211,6 +213,8 @@ function renderCatalogItem(catalogItem) {
   $row1.appendChild($imgCol)
   $shadow.appendChild($row1)
   styledCard.appendChild($row)
+  body.appendChild($h6)
+  body.appendChild($button)
   return styledCard
 }
 
