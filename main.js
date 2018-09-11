@@ -1,7 +1,5 @@
 var app = {
-  card: {
 
-  },
   view: 'catalog',
   catalog: {
     items: [
@@ -89,6 +87,9 @@ var app = {
   },
   details: {
     item: null
+  },
+  cart: {
+
   }
 }
 
@@ -181,9 +182,6 @@ function renderCatalogItem(catalogItem) {
   var $h3 = document.createElement('h3')
   $h3.setAttribute('class', 'card-subtitle')
   $h3.textContent = catalogItem.brand
-  var $h6 = document.createElement('h6')
-  $h6.setAttribute('class', 'card-subtitle')
-  $h6.textContent = 'Price: $' + catalogItem.price
   var description = document.createElement('p')
   description.setAttribute('class', 'card-text')
   description.textContent = catalogItem.description
@@ -193,6 +191,9 @@ function renderCatalogItem(catalogItem) {
   var $origin = document.createElement('h6')
   $origin.setAttribute('class', 'card-text')
   $origin.textContent = catalogItem.origin
+  var $h6 = document.createElement('h6')
+  $h6.setAttribute('class', 'card-subtitle')
+  $h6.textContent = 'Price: $' + catalogItem.price
 
   body.appendChild($h1)
   body.appendChild($h3)
@@ -241,4 +242,12 @@ function showView(view) {
       $view.classList.remove('hidden')
     }
   }
+}
+
+function shoppingCart (cartObj) {
+  var cart = document.createElement('div')
+  cart.setAttribute('class', 'cart')
+  var counter = app.cart.length
+  cart.textContent = 'Cart (' + counter + ')'
+  return cart
 }
