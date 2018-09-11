@@ -88,9 +88,7 @@ var app = {
   details: {
     item: null
   },
-  cart: {
-
-  }
+  cart: []
 }
 
 function singleCardBuilder(info) {
@@ -200,7 +198,8 @@ function renderCatalogItem(catalogItem) {
   $h6.textContent = 'Price: $' + catalogItem.price
   var $button = document.createElement('button')
   $button.setAttribute('class', 'btn btn-primary')
-  $button.textContent = 'ADD'
+  $button.setAttribute('id', 'add')
+  $button.textContent = 'ADD TO CART'
 
   body.appendChild($h1)
   body.appendChild($h3)
@@ -237,8 +236,13 @@ $catalog.addEventListener('click', function (e) {
   renderApp(app)
 }
 )
-
-
+var $details = document.querySelector('[data-view = "details"]')
+$details.addEventListener('click', function (e) {
+  var add = e.target.closest('.btn')
+  console.log(add)
+  if (!add) return
+  app.cart.push(app.details.item)
+})
 function showView(view) {
   var views = document.querySelectorAll('[data-view]')
   for (var i = 0; i < views.length; i++) {
