@@ -199,6 +199,10 @@ function renderCatalogItem(catalogItem) {
   $button.setAttribute('class', 'btn btn-primary')
   $button.setAttribute('id', 'add')
   $button.textContent = 'ADD TO CART'
+  var $backButton = document.createElement('button')
+  $backButton.setAttribute('class', 'btn btn-secondary')
+  $backButton.setAttribute('id', 'back')
+  $backButton.textContent = 'GO BACK'
 
   body.appendChild($h1)
   body.appendChild($h3)
@@ -213,6 +217,7 @@ function renderCatalogItem(catalogItem) {
   styledCard.appendChild($row)
   body.appendChild($h6)
   body.appendChild($button)
+  body.appendChild($backButton)
   return styledCard
 }
 
@@ -237,7 +242,7 @@ $catalog.addEventListener('click', function (e) {
 )
 var $details = document.querySelector('[data-view = "details"]')
 $details.addEventListener('click', function (e) {
-  var add = e.target.closest('.btn')
+  var add = e.target.closest('#add')
   if (!add) return
   app.cart.push(app.details.item)
   renderApp(app)
