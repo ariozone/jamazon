@@ -146,6 +146,7 @@ function renderApp(state) {
   if (state.view === 'catalog') {
     $view.innerHTML = ''
     $view.appendChild(catalogBuilder(state.catalog))
+    $view.appendChild(shoppingCart(state.cart))
   }
 
   if (state.view === 'details') {
