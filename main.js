@@ -276,24 +276,24 @@ function shoppingCart(cartObj) {
   return cart
 }
 
-function singleCartItem(info) {
+function renderSingleCartItem(cartItem) {
   var card = document.createElement('div')
   card.setAttribute('class', 'card item-card p-3 mt-2 mx-1')
-  card.setAttribute('data-item-id', info.itemId)
+  card.setAttribute('data-item-id', cartItem.itemId)
   var cardBody = document.createElement('div')
   cardBody.setAttribute('class', 'card-body item-card-body')
   var $brand = document.createElement('h5')
-  $brand.textContent = info.brand
+  $brand.textContent = cartItem.brand
   $brand.setAttribute('class', 'card-text')
   var $name = document.createElement('h3')
   $name.setAttribute('class', 'card-title')
-  $name.textContent = info.name
+  $name.textContent = cartItem.name
   var $price = document.createElement('h6')
   $price.setAttribute('class', 'card-text')
-  $price.textContent = 'Price: $' + info.price
+  $price.textContent = 'Price: $' + cartItem.price
   var $image = document.createElement('img')
   $image.setAttribute('class', 'card-img-top card-img')
-  $image.setAttribute('src', info.imageUrl)
+  $image.setAttribute('src', cartItem.imageUrl)
   card.appendChild($image)
   card.appendChild(cardBody)
   cardBody.appendChild($brand)
@@ -301,4 +301,34 @@ function singleCartItem(info) {
   cardBody.appendChild($price)
 
   return card
+}
+function renderCardItems(cartObject) {
+  var total = 0
+  var $container = document.createElement('div')
+  $container.setAttribute('class', 'container')
+  var $heading = document.createElement('h1')
+  $heading.classList.add('p-5')
+  $heading.classList.add('text-center')
+  $heading.textContent = 'Jamazon'
+  // var $deck = document.createElement('div')
+  // $deck.setAttribute('class', 'card-deck')
+  var $col = document.createElement('div')
+  $col.setAttribute('class', 'col col-sm-12 col-md-12')
+  for (var i = 0; i < app.cart.length; i++) {
+    var $row = document.createElement('div')
+    $row.setAttribute('class', 'row')
+    $row.appendChild(renderSingleCartItem(cartObject.cart[i]))
+    total += cartObject.cart[i].price
+    $col.appendChild($row)
+  }
+  var count = document.createElement('div')
+  count.textContent = app.cart.length + ' Items'
+  var $total = document.createElement('div')
+  $total.textContent = 'Total: $' + total
+  $container.appendChild($heading)
+  // $container.appendChild($deck)
+  $container.appendChild($col)
+  $container.appendChild(count)
+  $container.appendChild($total)
+  return $container
 }
