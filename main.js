@@ -246,6 +246,12 @@ $details.addEventListener('click', function (e) {
   if (!add) return
   app.cart.push(app.details.item)
   renderApp(app)
+}
+)
+$details.addEventListener('click', function (e) {
+  var back = e.target.closest('#back')
+  if (!back) return
+
 })
 
 function showView(view) {
