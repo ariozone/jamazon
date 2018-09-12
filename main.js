@@ -131,7 +131,7 @@ function catalogBuilder(data) {
   rowDiv.setAttribute('class', 'row no-gutters')
   for (var i = 0; i < data.items.length; i++) {
     var $col = document.createElement('div')
-    $col.setAttribute('class', 'col-sm-3 col-md-3 col-sm col-sm-5 col-sm-6 col-lg-3')
+    $col.setAttribute('class', 'col col-sm-3 col-md-3 col-sm-4 col-sm-6')
     $col.appendChild(singleCardBuilder(data.items[i]))
     rowDiv.appendChild($col)
   }
