@@ -251,6 +251,7 @@ $details.addEventListener('click', function (e) {
 $details.addEventListener('click', function (e) {
   var back = e.target.closest('#back')
   if (!back) return
+  app.view = 'catalog'
 
 })
 
