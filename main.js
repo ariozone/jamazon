@@ -154,6 +154,10 @@ function renderApp(state) {
     $view.appendChild(renderCatalogItem(state.details.item))
     $view.appendChild(shoppingCart(state.cart))
   }
+  if (state.view === 'cart') {
+    $view.innerHTML = ''
+    $view.appendChild(renderCardItems(state.cart))
+  }
   showView(state.view)
 }
 renderApp(app)
@@ -254,6 +258,13 @@ $details.addEventListener('click', function (e) {
   app.view = 'catalog'
   renderApp(app)
 })
+var $cart = document.getElementById('app')
+$cart.addEventListener('click', function (e) {
+  var shop = e.target.closest('#cart')
+  if (!shop) return
+  app.view = 'cart'
+  renderApp(app)
+})
 
 function showView(view) {
   var views = document.querySelectorAll('[data-view]')
@@ -270,7 +281,7 @@ function showView(view) {
 
 function shoppingCart(cartObj) {
   var cart = document.createElement('div')
-  cart.setAttribute('class', 'cart')
+  cart.setAttribute('id', 'cart')
   var counter = cartObj.length
   cart.textContent = 'Cart (' + counter + ')'
   return cart
@@ -302,8 +313,9 @@ function renderSingleCartItem(cartItem) {
 
   return card
 }
+var total = 0
 function renderCardItems(cartObject) {
-  var total = 0
+
   var $container = document.createElement('div')
   $container.setAttribute('class', 'container')
   var $heading = document.createElement('h1')
@@ -317,8 +329,8 @@ function renderCardItems(cartObject) {
   for (var i = 0; i < app.cart.length; i++) {
     var $row = document.createElement('div')
     $row.setAttribute('class', 'row')
-    $row.appendChild(renderSingleCartItem(cartObject.cart[i]))
-    total += cartObject.cart[i].price
+    $row.appendChild(renderSingleCartItem(app.cart[i]))
+    total += app.cart[i].price
     $col.appendChild($row)
   }
   var count = document.createElement('div')
@@ -330,5 +342,10 @@ function renderCardItems(cartObject) {
   $container.appendChild($col)
   $container.appendChild(count)
   $container.appendChild($total)
+  var cont = document.createElement('button')
+  cont.setAttribute('class', 'btn btn-primary')
+  cont.setAttribute('id', 'cont')
+  cont.textContent = 'Continue Shopping'
+  $container.appendChild(cont)
   return $container
 }
