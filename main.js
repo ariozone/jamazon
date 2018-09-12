@@ -252,7 +252,7 @@ $details.addEventListener('click', function (e) {
   var back = e.target.closest('#back')
   if (!back) return
   app.view = 'catalog'
-
+  renderApp(app)
 })
 
 function showView(view) {
