@@ -275,3 +275,30 @@ function shoppingCart(cartObj) {
   cart.textContent = 'Cart (' + counter + ')'
   return cart
 }
+
+function singleCartItem(info) {
+  var card = document.createElement('div')
+  card.setAttribute('class', 'card item-card p-3 mt-2 mx-1')
+  card.setAttribute('data-item-id', info.itemId)
+  var cardBody = document.createElement('div')
+  cardBody.setAttribute('class', 'card-body item-card-body')
+  var $brand = document.createElement('h5')
+  $brand.textContent = info.brand
+  $brand.setAttribute('class', 'card-text')
+  var $name = document.createElement('h3')
+  $name.setAttribute('class', 'card-title')
+  $name.textContent = info.name
+  var $price = document.createElement('h6')
+  $price.setAttribute('class', 'card-text')
+  $price.textContent = 'Price: $' + info.price
+  var $image = document.createElement('img')
+  $image.setAttribute('class', 'card-img-top card-img')
+  $image.setAttribute('src', info.imageUrl)
+  card.appendChild($image)
+  card.appendChild(cardBody)
+  cardBody.appendChild($brand)
+  cardBody.appendChild($name)
+  cardBody.appendChild($price)
+
+  return card
+}
