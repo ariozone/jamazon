@@ -265,6 +265,12 @@ $cart.addEventListener('click', function (e) {
   app.view = 'cart'
   renderApp(app)
 })
+$cart.addEventListener('click', function (e) {
+  var continueShopping = e.target.closest('#cont')
+  if (!continueShopping) return
+  app.view = 'catalog'
+  renderApp(app)
+})
 
 function showView(view) {
   var views = document.querySelectorAll('[data-view]')
