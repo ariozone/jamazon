@@ -322,8 +322,6 @@ function renderCardItems(cartObject) {
   $heading.classList.add('p-5')
   $heading.classList.add('text-center')
   $heading.textContent = 'Jamazon'
-  // var $deck = document.createElement('div')
-  // $deck.setAttribute('class', 'card-deck')
   var $col = document.createElement('div')
   $col.setAttribute('class', 'col col-sm-12 col-md-12')
   for (var i = 0; i < app.cart.length; i++) {
@@ -338,7 +336,6 @@ function renderCardItems(cartObject) {
   var $total = document.createElement('div')
   $total.textContent = 'Total: $' + total
   $container.appendChild($heading)
-  // $container.appendChild($deck)
   $container.appendChild($col)
   $container.appendChild(count)
   $container.appendChild($total)
