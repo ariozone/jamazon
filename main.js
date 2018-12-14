@@ -131,7 +131,7 @@ function catalogBuilder(data) {
   rowDiv.setAttribute('class', 'row no-gutters')
   for (var i = 0; i < data.items.length; i++) {
     var $col = document.createElement('div')
-    $col.setAttribute('class', 'col-sm-3 col-md-3 col-sm col-sm-5 col-sm-6 col-lg-3')
+    $col.setAttribute('class', 'col col-sm-3 col-md-3 col-sm-4 col-sm-6')
     $col.appendChild(singleCardBuilder(data.items[i]))
     rowDiv.appendChild($col)
   }
@@ -153,6 +153,10 @@ function renderApp(state) {
     $view.innerHTML = ''
     $view.appendChild(renderCatalogItem(state.details.item))
     $view.appendChild(shoppingCart(state.cart))
+  }
+  if (state.view === 'cart') {
+    $view.innerHTML = ''
+    $view.appendChild(renderCardItems(state.cart))
   }
   showView(state.view)
 }
@@ -254,6 +258,19 @@ $details.addEventListener('click', function (e) {
   app.view = 'catalog'
   renderApp(app)
 })
+var $cart = document.getElementById('app')
+$cart.addEventListener('click', function (e) {
+  var shop = e.target.closest('#cart')
+  if (!shop) return
+  app.view = 'cart'
+  renderApp(app)
+})
+$cart.addEventListener('click', function (e) {
+  var continueShopping = e.target.closest('#cont')
+  if (!continueShopping) return
+  app.view = 'catalog'
+  renderApp(app)
+})
 
 function showView(view) {
   var views = document.querySelectorAll('[data-view]')
@@ -270,8 +287,78 @@ function showView(view) {
 
 function shoppingCart(cartObj) {
   var cart = document.createElement('div')
-  cart.setAttribute('class', 'cart')
+  cart.setAttribute('id', 'cart')
   var counter = cartObj.length
   cart.textContent = 'Cart (' + counter + ')'
   return cart
+}
+
+function renderSingleCartItem(cartItem) {
+  var card = document.createElement('div')
+  card.setAttribute('class', 'card item-card p-3 mt-2 mx-1')
+  card.setAttribute('data-item-id', cartItem.itemId)
+  var cardBody = document.createElement('div')
+  cardBody.setAttribute('class', 'card-body item-card-body')
+  var $brand = document.createElement('h5')
+  $brand.textContent = cartItem.brand
+  $brand.setAttribute('class', 'card-text')
+  var $name = document.createElement('h3')
+  $name.setAttribute('class', 'card-title')
+  $name.textContent = cartItem.name
+  var $price = document.createElement('h6')
+  $price.setAttribute('class', 'card-text')
+  $price.textContent = 'Price: $' + cartItem.price
+  var $image = document.createElement('img')
+  $image.setAttribute('class', 'card-img-top card-img')
+  $image.setAttribute('src', cartItem.imageUrl)
+  card.appendChild($image)
+  card.appendChild(cardBody)
+  cardBody.appendChild($brand)
+  cardBody.appendChild($name)
+  cardBody.appendChild($price)
+
+  return card
+}
+var total = 0
+function renderCardItems(cartObject) {
+
+  var $container = document.createElement('div')
+  $container.setAttribute('class', 'container')
+  var $heading = document.createElement('h1')
+  $heading.classList.add('p-5')
+  $heading.classList.add('text-center')
+  $heading.textContent = 'Jamazon'
+  var $col = document.createElement('div')
+  $col.setAttribute('class', 'col col-sm-12 col-md-12')
+  for (var i = 0; i < app.cart.length; i++) {
+    var $row = document.createElement('div')
+    $row.setAttribute('class', 'row')
+    $row.appendChild(renderSingleCartItem(app.cart[i]))
+    total += app.cart[i].price
+    $col.appendChild($row)
+  }
+
+  var count = document.createElement('div')
+  count.textContent = app.cart.length + ' Items'
+
+  var $total = document.createElement('div')
+  $total.textContent = 'Total: $' + total
+  $container.appendChild($heading)
+  $container.appendChild($col)
+  $container.appendChild(count)
+  $container.appendChild($total)
+
+  var checkout = document.createElement('button')
+  checkout.setAttribute('class', 'btn btn-primary')
+  checkout.setAttribute('id', 'checkout')
+  checkout.textContent = 'Check Out'
+  $container.appendChild(checkout)
+
+  var cont = document.createElement('button')
+  cont.setAttribute('class', 'btn btn-secondary')
+  cont.setAttribute('id', 'cont')
+  cont.textContent = 'Continue Shopping'
+  $container.appendChild(cont)
+
+  return $container
 }
