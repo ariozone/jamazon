@@ -275,6 +275,7 @@ $cart.addEventListener('click', function (e) {
   var checkout = e.target.closest('#checkout')
   if (!checkout) return
   app.view = 'checkout'
+  renderApp(app)
 })
 
 function showView(view) {
