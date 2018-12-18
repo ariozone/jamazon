@@ -1,4 +1,4 @@
-var app = {
+const app = {
 
   view: 'catalog',
   catalog: {
@@ -92,21 +92,21 @@ var app = {
 }
 
 function singleCardBuilder(info) {
-  var card = document.createElement('div')
+  const card = document.createElement('div')
   card.setAttribute('class', 'card item-card p-3 mt-2 mx-1')
   card.setAttribute('data-item-id', info.itemId)
-  var cardBody = document.createElement('div')
+  const cardBody = document.createElement('div')
   cardBody.setAttribute('class', 'card-body item-card-body')
-  var $brand = document.createElement('h5')
+  const $brand = document.createElement('h5')
   $brand.textContent = info.brand
   $brand.setAttribute('class', 'card-text')
-  var $name = document.createElement('h3')
+  const $name = document.createElement('h3')
   $name.setAttribute('class', 'card-title')
   $name.textContent = info.name
-  var $price = document.createElement('h6')
+  const $price = document.createElement('h6')
   $price.setAttribute('class', 'card-text')
   $price.textContent = 'Price: $' + info.price
-  var $image = document.createElement('img')
+  const $image = document.createElement('img')
   $image.setAttribute('class', 'card-img-top card-img')
   $image.setAttribute('src', info.imageUrl)
   card.appendChild($image)
@@ -119,18 +119,18 @@ function singleCardBuilder(info) {
 }
 
 function catalogBuilder(data) {
-  var $container = document.createElement('div')
+  const $container = document.createElement('div')
   $container.setAttribute('class', 'container')
-  var $heading = document.createElement('h1')
+  const $heading = document.createElement('h1')
   $heading.classList.add('p-5')
   $heading.classList.add('text-center')
   $heading.textContent = 'Jamazon'
-  var $deck = document.createElement('div')
+  const $deck = document.createElement('div')
   $deck.setAttribute('class', 'card-deck')
-  var rowDiv = document.createElement('div')
+  const rowDiv = document.createElement('div')
   rowDiv.setAttribute('class', 'row no-gutters')
-  for (var i = 0; i < data.items.length; i++) {
-    var $col = document.createElement('div')
+  for (let i = 0; i < data.items.length; i++) {
+    const $col = document.createElement('div')
     $col.setAttribute('class', 'col col-sm-3 col-md-3 col-sm-4 col-sm-6')
     $col.appendChild(singleCardBuilder(data.items[i]))
     rowDiv.appendChild($col)
@@ -142,7 +142,7 @@ function catalogBuilder(data) {
 }
 
 function renderApp(state) {
-  var $view = document.querySelector('[data-view="' + state.view + '"]')
+  const $view = document.querySelector('[data-view="' + state.view + '"]')
   if (state.view === 'catalog') {
     $view.innerHTML = ''
     $view.appendChild(catalogBuilder(state.catalog))
@@ -163,47 +163,47 @@ function renderApp(state) {
 renderApp(app)
 
 function renderCatalogItem(catalogItem) {
-  var styledCard = document.createElement('div')
+  const styledCard = document.createElement('div')
   styledCard.setAttribute('class', 'container my-5')
-  var $row = document.createElement('row')
+  const $row = document.createElement('row')
   $row.setAttribute('class', 'row')
-  var $shadow = document.createElement('div')
+  const $shadow = document.createElement('div')
   $shadow.setAttribute('class', 'card shadow-sm')
   $row.appendChild($shadow)
-  var $row1 = document.createElement('div')
+  const $row1 = document.createElement('div')
   $row1.setAttribute('class', 'row no-gutters')
-  var $imgCol = document.createElement('div')
+  const $imgCol = document.createElement('div')
   $imgCol.setAttribute('class', 'col-lg-4')
-  var $img = document.createElement('img')
+  const $img = document.createElement('img')
   $img.setAttribute('class', 'img-responsive w-100')
   $img.setAttribute('src', catalogItem.imageUrl)
-  var $col = document.createElement('div')
+  const $col = document.createElement('div')
   $col.setAttribute('class', 'col')
-  var body = document.createElement('div')
+  const body = document.createElement('div')
   body.setAttribute('class', 'card-body')
-  var $h1 = document.createElement('h1')
+  const $h1 = document.createElement('h1')
   $h1.setAttribute('class', 'card-title')
   $h1.textContent = catalogItem.name
-  var $h3 = document.createElement('h3')
+  const $h3 = document.createElement('h3')
   $h3.setAttribute('class', 'card-subtitle')
   $h3.textContent = catalogItem.brand
-  var description = document.createElement('p')
+  const description = document.createElement('p')
   description.setAttribute('class', 'card-text')
   description.textContent = catalogItem.description
-  var $details = document.createElement('p')
+  const $details = document.createElement('p')
   $details.setAttribute('class', 'card-text')
   $details.textContent = catalogItem.details
-  var $origin = document.createElement('h6')
+  const $origin = document.createElement('h6')
   $origin.setAttribute('class', 'card-text')
   $origin.textContent = catalogItem.origin
-  var $h6 = document.createElement('h6')
+  const $h6 = document.createElement('h6')
   $h6.setAttribute('class', 'card-subtitle')
   $h6.textContent = 'Price: $' + catalogItem.price
-  var $button = document.createElement('button')
+  const $button = document.createElement('button')
   $button.setAttribute('class', 'btn btn-primary')
   $button.setAttribute('id', 'add')
   $button.textContent = 'ADD TO CART'
-  var $backButton = document.createElement('button')
+  const $backButton = document.createElement('button')
   $backButton.setAttribute('class', 'btn btn-secondary')
   $backButton.setAttribute('id', 'back')
   $backButton.textContent = 'GO BACK'
@@ -226,62 +226,62 @@ function renderCatalogItem(catalogItem) {
 }
 
 function match(id, items) {
-  for (var i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i++) {
     if (id === items[i].itemId) {
       return items[i]
     }
   }
 }
-var $catalog = document.querySelector('[data-view = "catalog"]')
+const $catalog = document.querySelector('[data-view = "catalog"]')
 $catalog.addEventListener('click', function (e) {
-  var drum = e.target.closest('[data-item-id]')
+  const drum = e.target.closest('[data-item-id]')
   if (!drum) return
   app.view = 'details'
-  var $itemId = drum.getAttribute('data-item-id')
-  var id = parseInt($itemId, 10)
-  var selectedDrum = match(id, app.catalog.items)
+  const $itemId = drum.getAttribute('data-item-id')
+  const id = parseInt($itemId, 10)
+  const selectedDrum = match(id, app.catalog.items)
   app.details.item = selectedDrum
   renderApp(app)
 }
 )
-var $details = document.querySelector('[data-view = "details"]')
+const $details = document.querySelector('[data-view = "details"]')
 $details.addEventListener('click', function (e) {
-  var add = e.target.closest('#add')
+  const add = e.target.closest('#add')
   if (!add) return
   app.cart.push(app.details.item)
   renderApp(app)
 }
 )
 $details.addEventListener('click', function (e) {
-  var back = e.target.closest('#back')
+  const back = e.target.closest('#back')
   if (!back) return
   app.view = 'catalog'
   renderApp(app)
 })
-var $cart = document.getElementById('app')
+const $cart = document.getElementById('app')
 $cart.addEventListener('click', function (e) {
-  var shop = e.target.closest('#cart')
+  const shop = e.target.closest('#cart')
   if (!shop) return
   app.view = 'cart'
   renderApp(app)
 })
 $cart.addEventListener('click', function (e) {
-  var continueShopping = e.target.closest('#cont')
+  const continueShopping = e.target.closest('#cont')
   if (!continueShopping) return
   app.view = 'catalog'
   renderApp(app)
 })
 $cart.addEventListener('click', function (e) {
-  var checkout = e.target.closest('#checkout')
+  const checkout = e.target.closest('#checkout')
   if (!checkout) return
   app.view = 'checkout'
   renderApp(app)
 })
 
 function showView(view) {
-  var views = document.querySelectorAll('[data-view]')
-  for (var i = 0; i < views.length; i++) {
-    var $view = views[i]
+  const views = document.querySelectorAll('[data-view]')
+  for (let i = 0; i < views.length; i++) {
+    const $view = views[i]
     if (view !== views[i].getAttribute('data-view')) {
       $view.classList.add('hidden')
     }
@@ -292,29 +292,29 @@ function showView(view) {
 }
 
 function shoppingCart(cartObj) {
-  var cart = document.createElement('div')
+  const cart = document.createElement('div')
   cart.setAttribute('id', 'cart')
-  var counter = cartObj.length
+  const counter = cartObj.length
   cart.textContent = 'Cart (' + counter + ')'
   return cart
 }
 
 function renderSingleCartItem(cartItem) {
-  var card = document.createElement('div')
+  const card = document.createElement('div')
   card.setAttribute('class', 'card item-card p-3 mt-2 mx-1')
   card.setAttribute('data-item-id', cartItem.itemId)
-  var cardBody = document.createElement('div')
+  const cardBody = document.createElement('div')
   cardBody.setAttribute('class', 'card-body item-card-body')
-  var $brand = document.createElement('h5')
+  const $brand = document.createElement('h5')
   $brand.textContent = cartItem.brand
   $brand.setAttribute('class', 'card-text')
-  var $name = document.createElement('h3')
+  const $name = document.createElement('h3')
   $name.setAttribute('class', 'card-title')
   $name.textContent = cartItem.name
-  var $price = document.createElement('h6')
+  const $price = document.createElement('h6')
   $price.setAttribute('class', 'card-text')
   $price.textContent = 'Price: $' + cartItem.price
-  var $image = document.createElement('img')
+  const $image = document.createElement('img')
   $image.setAttribute('class', 'card-img-top card-img')
   $image.setAttribute('src', cartItem.imageUrl)
   card.appendChild($image)
@@ -325,42 +325,42 @@ function renderSingleCartItem(cartItem) {
 
   return card
 }
-var total = 0
+let total = 0
 function renderCardItems(cartObject) {
 
-  var $container = document.createElement('div')
+  const $container = document.createElement('div')
   $container.setAttribute('class', 'container')
-  var $heading = document.createElement('h1')
+  const $heading = document.createElement('h1')
   $heading.classList.add('p-5')
   $heading.classList.add('text-center')
   $heading.textContent = 'Jamazon'
-  var $col = document.createElement('div')
+  const $col = document.createElement('div')
   $col.setAttribute('class', 'col col-sm-12 col-md-12')
-  for (var i = 0; i < app.cart.length; i++) {
-    var $row = document.createElement('div')
+  for (let i = 0; i < app.cart.length; i++) {
+    const $row = document.createElement('div')
     $row.setAttribute('class', 'row')
     $row.appendChild(renderSingleCartItem(app.cart[i]))
     total += app.cart[i].price
     $col.appendChild($row)
   }
 
-  var count = document.createElement('div')
+  const count = document.createElement('div')
   count.textContent = app.cart.length + ' Items'
 
-  var $total = document.createElement('div')
+  const $total = document.createElement('div')
   $total.textContent = 'Total: $' + total
   $container.appendChild($heading)
   $container.appendChild($col)
   $container.appendChild(count)
   $container.appendChild($total)
 
-  var checkout = document.createElement('button')
+  const checkout = document.createElement('button')
   checkout.setAttribute('class', 'btn btn-primary')
   checkout.setAttribute('id', 'checkout')
   checkout.textContent = 'Check Out'
   $container.appendChild(checkout)
 
-  var cont = document.createElement('button')
+  const cont = document.createElement('button')
   cont.setAttribute('class', 'btn btn-secondary')
   cont.setAttribute('id', 'cont')
   cont.textContent = 'Continue Shopping'
