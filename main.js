@@ -249,6 +249,7 @@ $details.addEventListener('click', function (e) {
   const add = e.target.closest('#add')
   if (!add) return
   app.cart.push(app.details.item)
+  app.view = 'cart'
   renderApp(app)
 }
 )
