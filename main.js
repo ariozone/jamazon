@@ -382,9 +382,9 @@ function renderCheckout(cart) {
   $heading.classList.add('p-5')
   $heading.classList.add('text-center')
   $heading.textContent = 'Jamazon'
-  const $h3 = document.createElement('h3')
-  $h3.classList.add('text-center')
-  $h3.textContent = 'Checkout'
+  const $h4 = document.createElement('h4')
+  $h4.classList.add('text-center')
+  $h4.textContent = 'Checkout'
 
   const $form = document.createElement('div')
   $form.setAttribute('class', 'form container shadow-sm w-50 p-5 mt-5 text-center')
@@ -424,7 +424,7 @@ function renderCheckout(cart) {
   $button.setAttribute('type', 'button')
   $button.textContent = 'Pay Now'
   $container.appendChild($heading)
-  $container.appendChild($h3)
+  $container.appendChild($h4)
   $container.appendChild($form)
   $form.appendChild($form1)
   $form.appendChild($form2)

@@ -22,11 +22,12 @@ h1 {
   font-size: 60px;
 }
 
-h3 {
+h4 {
   color: rgb(182, 175, 175);
   font-family: 'Chango', cursive;
   font-size: 40px;
 }
+
 .hidden {
   display: none;
 }
