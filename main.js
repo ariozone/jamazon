@@ -158,6 +158,10 @@ function renderApp(state) {
     $view.innerHTML = ''
     $view.appendChild(renderCardItems(state.cart))
   }
+  if (state.view === 'checkout') {
+    $view.innerHTML = ''
+    $view.appendChild(renderCheckout(state.cart))
+  }
   showView(state.view)
 }
 renderApp(app)
@@ -259,6 +263,7 @@ $details.addEventListener('click', function (e) {
   app.view = 'catalog'
   renderApp(app)
 })
+
 const $cart = document.getElementById('app')
 $cart.addEventListener('click', function (e) {
   const shop = e.target.closest('#cart')
@@ -367,5 +372,68 @@ function renderCardItems(cartObject) {
   cont.textContent = 'Continue Shopping'
   $container.appendChild(cont)
 
+  return $container
+}
+
+function renderCheckout(cart) {
+  const $container = document.createElement('div')
+  $container.setAttribute('class', 'container')
+  const $heading = document.createElement('h1')
+  $heading.classList.add('p-5')
+  $heading.classList.add('text-center')
+  $heading.textContent = 'Jamazon'
+  const $h3 = document.createElement('h3')
+  $h3.classList.add('text-center')
+  $h3.textContent = 'Checkout'
+
+  const $form = document.createElement('div')
+  $form.setAttribute('class', 'form container shadow-sm w-50 p-5 mt-5 text-center')
+  const $form1 = document.createElement('div')
+  $form1.setAttribute('class', 'form-group')
+  const $name = document.createElement('input')
+  $name.setAttribute('class', 'form-control')
+  $name.setAttribute('type', 'text')
+  $name.setAttribute('placeholder', 'Name')
+  const $form2 = document.createElement('div')
+  $form2.setAttribute('class', 'form-group')
+  const $address = document.createElement('input')
+  $address.setAttribute('class', 'form-control')
+  $address.setAttribute('type', 'text')
+  $address.setAttribute('placeholder', 'Address')
+  const $form3 = document.createElement('div')
+  $form3.setAttribute('class', 'form-group')
+  const $credit = document.createElement('input')
+  $credit.setAttribute('class', 'form-control')
+  $credit.setAttribute('type', 'text')
+  $credit.textContent = 'Credit Card'
+  $credit.setAttribute('placeholder', 'Credit Card')
+  const $count = document.createElement('div')
+  $count.setAttribute('class', 'text-right')
+  $count.textContent = cart.length + ' Item(s)'
+  const $total = document.createElement('div')
+  $total.setAttribute('class', 'text-right')
+
+  let total = 0
+  for (let i = 0; i < cart.length; i++) {
+    total += cart[i].price
+    $total.textContent = 'Total: $' + total
+  }
+  const $button = document.createElement('button')
+  $button.setAttribute('class', 'btn btn-primary')
+  $button.setAttribute('id', 'checkout-btn')
+  $button.setAttribute('type', 'button')
+  $button.textContent = 'Pay Now'
+  $container.appendChild($heading)
+  $container.appendChild($h3)
+  $container.appendChild($form)
+  $form.appendChild($form1)
+  $form.appendChild($form2)
+  $form.appendChild($form3)
+  $form1.appendChild($name)
+  $form2.appendChild($address)
+  $form3.appendChild($credit)
+  $form.appendChild($count)
+  $form.appendChild($total)
+  $form.appendChild($button)
   return $container
 }
