@@ -162,6 +162,11 @@ function renderApp(state) {
     $view.innerHTML = ''
     $view.appendChild(renderCheckout(state.cart))
   }
+  if (state.view === 'confirmation') {
+    $view.innerHTML = ''
+    $view.appendChild(renderConfirmation())
+  }
+
   showView(state.view)
 }
 renderApp(app)
@@ -283,6 +288,13 @@ $cart.addEventListener('click', function (e) {
   app.view = 'checkout'
   renderApp(app)
 })
+const $confirm = document.querySelector('[data-view = "checkout"]')
+$confirm.addEventListener('click', function (e) {
+  const confirmation = e.target.closest('#confirmation')
+  if (!confirmation) return
+  app.view = 'confirmation'
+  renderApp(app)
+})
 
 function showView(view) {
   const views = document.querySelectorAll('[data-view]')
@@ -316,7 +328,7 @@ function renderSingleCartItem(cartItem) {
   const col2 = document.createElement('div')
   col2.setAttribute('class', 'col-md-6 text-center')
   const cardBody = document.createElement('div')
-  cardBody.setAttribute('class', 'card-block my-2 text-center')
+  cardBody.setAttribute('class', 'card-block text-center')
   const $brand = document.createElement('h5')
   $brand.textContent = cartItem.brand
   $brand.setAttribute('class', 'card-text')
@@ -429,9 +441,9 @@ function renderCheckout(cart) {
   }
   const $button = document.createElement('button')
   $button.setAttribute('class', 'btn btn-primary')
-  $button.setAttribute('id', 'checkout-btn')
+  $button.setAttribute('id', 'confirmation')
   $button.setAttribute('type', 'button')
-  $button.textContent = 'Pay Now'
+  $button.textContent = 'Place Order'
   $container.appendChild($heading)
   $container.appendChild($h4)
   $container.appendChild($form)
@@ -445,4 +457,37 @@ function renderCheckout(cart) {
   $form.appendChild($total)
   $form.appendChild($button)
   return $container
+}
+
+function renderConfirmation() {
+  const $div1 = document.createElement('div')
+  $div1.setAttribute('role', 'dialog')
+  $div1.setAttribute('class', 'text-center')
+  const $div2 = document.createElement('div')
+  $div2.setAttribute('class', 'modal-dialog shadow')
+  $div2.setAttribute('role', 'document')
+  const $div3 = document.createElement('div')
+  $div3.setAttribute('class', 'modal-content')
+  const $div4 = document.createElement('div')
+  $div4.setAttribute('class', 'modal-header')
+  const $title = document.createElement('h5')
+  $title.setAttribute('class', 'modal-title mx-auto')
+  $title.textContent = 'Order Confirmed.'
+  const $body = document.createElement('div')
+  $body.setAttribute('class', 'modal-body')
+  $body.textContent = 'Thank you!'
+  const $footer = document.createElement('div')
+  $footer.setAttribute('class', 'modal-footer')
+  const $button1 = document.createElement('button')
+  $button1.setAttribute('type', 'button')
+  $button1.setAttribute('class', 'btn btn-secondary mx-auto')
+  $button1.textContent = 'Continiue Shopping'
+  $div1.appendChild($div2)
+  $div2.appendChild($div3)
+  $div3.appendChild($div4)
+  $div4.appendChild($title)
+  $div3.appendChild($body)
+  $div3.appendChild($footer)
+  $footer.appendChild($button1)
+  return $div1
 }
