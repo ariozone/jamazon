@@ -107,7 +107,7 @@ function singleCardBuilder(info) {
   $price.setAttribute('class', 'card-text')
   $price.textContent = 'Price: $' + info.price
   const $image = document.createElement('img')
-  $image.setAttribute('class', 'card-img-top card-img')
+  $image.setAttribute('class', 'card-img-top card-img mx-auto')
   $image.setAttribute('src', info.imageUrl)
   card.appendChild($image)
   card.appendChild(cardBody)
@@ -307,10 +307,16 @@ function shoppingCart(cartObj) {
 
 function renderSingleCartItem(cartItem) {
   const card = document.createElement('div')
-  card.setAttribute('class', 'card item-card p-3 mt-2 mx-1')
+  card.setAttribute('class', 'card w-100')
   card.setAttribute('data-item-id', cartItem.itemId)
+  const row = document.createElement('div')
+  row.setAttribute('class', 'row py-1')
+  const col1 = document.createElement('div')
+  col1.setAttribute('class', 'col-md-6')
+  const col2 = document.createElement('div')
+  col2.setAttribute('class', 'col-md-6 text-center')
   const cardBody = document.createElement('div')
-  cardBody.setAttribute('class', 'card-body item-card-body')
+  cardBody.setAttribute('class', 'card-block my-2 text-center')
   const $brand = document.createElement('h5')
   $brand.textContent = cartItem.brand
   $brand.setAttribute('class', 'card-text')
@@ -321,13 +327,16 @@ function renderSingleCartItem(cartItem) {
   $price.setAttribute('class', 'card-text')
   $price.textContent = 'Price: $' + cartItem.price
   const $image = document.createElement('img')
-  $image.setAttribute('class', 'card-img-top card-img')
+  $image.setAttribute('class', 'card-img')
   $image.setAttribute('src', cartItem.imageUrl)
-  card.appendChild($image)
-  card.appendChild(cardBody)
+  card.appendChild(row)
+  row.appendChild(col1)
+  col1.appendChild(cardBody)
   cardBody.appendChild($brand)
   cardBody.appendChild($name)
   cardBody.appendChild($price)
+  row.appendChild(col2)
+  col2.appendChild($image)
 
   return card
 }
@@ -354,7 +363,7 @@ function renderCardItems(cartObject) {
   count.textContent = app.cart.length + ' Items'
 
   const $total = document.createElement('div')
-  $total.textContent = 'Total: $' + total
+  $total.textContent = 'Total: $' + total.toFixed(2)
   $container.appendChild($heading)
   $container.appendChild($col)
   $container.appendChild(count)
@@ -416,7 +425,7 @@ function renderCheckout(cart) {
   let total = 0
   for (let i = 0; i < cart.length; i++) {
     total += cart[i].price
-    $total.textContent = 'Total: $' + total
+    $total.textContent = 'Total: $' + total.toFixed(2)
   }
   const $button = document.createElement('button')
   $button.setAttribute('class', 'btn btn-primary')
