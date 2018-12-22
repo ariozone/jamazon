@@ -93,7 +93,7 @@ const app = {
 
 function singleCardBuilder(info) {
   const card = document.createElement('div')
-  card.setAttribute('class', 'card item-card p-3 mt-2 mx-1')
+  card.setAttribute('class', 'card item-card p-3 mt-2 mx-1 shadow')
   card.setAttribute('data-item-id', info.itemId)
   const cardBody = document.createElement('div')
   cardBody.setAttribute('class', 'card-body item-card-body')
@@ -107,7 +107,7 @@ function singleCardBuilder(info) {
   $price.setAttribute('class', 'card-text')
   $price.textContent = 'Price: $' + info.price
   const $image = document.createElement('img')
-  $image.setAttribute('class', 'card-img-top card-img mx-auto')
+  $image.setAttribute('class', 'card-img-top card-img mx-auto shadow')
   $image.setAttribute('src', info.imageUrl)
   card.appendChild($image)
   card.appendChild(cardBody)
@@ -177,7 +177,7 @@ function renderCatalogItem(catalogItem) {
   const $row = document.createElement('row')
   $row.setAttribute('class', 'row')
   const $shadow = document.createElement('div')
-  $shadow.setAttribute('class', 'card shadow-sm')
+  $shadow.setAttribute('class', 'card shadow')
   $row.appendChild($shadow)
   const $row1 = document.createElement('div')
   $row1.setAttribute('class', 'row no-gutters')
@@ -209,11 +209,11 @@ function renderCatalogItem(catalogItem) {
   $h6.setAttribute('class', 'card-subtitle')
   $h6.textContent = 'Price: $' + catalogItem.price
   const $button = document.createElement('button')
-  $button.setAttribute('class', 'btn btn-primary')
+  $button.setAttribute('class', 'btn btn-primary shadow mx-1')
   $button.setAttribute('id', 'add')
   $button.textContent = 'ADD TO CART'
   const $backButton = document.createElement('button')
-  $backButton.setAttribute('class', 'btn btn-secondary')
+  $backButton.setAttribute('class', 'btn btn-secondary shadow mx-1')
   $backButton.setAttribute('id', 'back')
   $backButton.textContent = 'GO BACK'
 
@@ -284,7 +284,7 @@ $cart.addEventListener('click', function (e) {
 })
 $cart.addEventListener('click', function (e) {
   const checkout = e.target.closest('#checkout')
-  if (!checkout) return
+  if (!checkout || app.cart.length === 0) return
   app.view = 'checkout'
   renderApp(app)
 })
@@ -293,6 +293,14 @@ $confirm.addEventListener('click', function (e) {
   const confirmation = e.target.closest('#confirmation')
   if (!confirmation) return
   app.view = 'confirmation'
+  renderApp(app)
+})
+const $continue = document.querySelector('[data-view = "confirmation"]')
+$continue.addEventListener('click', function (e) {
+  const continiue = e.target.closest('#continiue')
+  if (!continiue) return
+  app.view = 'catalog'
+  app.cart = []
   renderApp(app)
 })
 
@@ -319,7 +327,7 @@ function shoppingCart(cartObj) {
 
 function renderSingleCartItem(cartItem) {
   const card = document.createElement('div')
-  card.setAttribute('class', 'card w-100')
+  card.setAttribute('class', 'card w-100 shadow')
   card.setAttribute('data-item-id', cartItem.itemId)
   const row = document.createElement('div')
   row.setAttribute('class', 'row py-1')
@@ -352,9 +360,8 @@ function renderSingleCartItem(cartItem) {
 
   return card
 }
-let total = 0
 function renderCardItems(cartObject) {
-
+  let total = 0
   const $container = document.createElement('div')
   $container.setAttribute('class', 'container')
   const $heading = document.createElement('h1')
@@ -364,17 +371,18 @@ function renderCardItems(cartObject) {
   const $col = document.createElement('div')
   $col.setAttribute('class', 'col col-sm-12 col-md-12')
   for (let i = 0; i < app.cart.length; i++) {
-    const $row = document.createElement('div')
-    $row.setAttribute('class', 'row')
-    $row.appendChild(renderSingleCartItem(app.cart[i]))
     total += app.cart[i].price
+    const $row = document.createElement('div')
+    $row.setAttribute('class', 'row m-1 shadow')
+    $row.appendChild(renderSingleCartItem(app.cart[i]))
     $col.appendChild($row)
   }
 
   const count = document.createElement('div')
-  count.textContent = app.cart.length + ' Items'
-
+  count.setAttribute('class', 'm-2')
+  count.textContent = 'Item(s) Qty: ' + app.cart.length
   const $total = document.createElement('div')
+  $total.setAttribute('class', 'm-2')
   $total.textContent = 'Total: $' + total.toFixed(2)
   $container.appendChild($heading)
   $container.appendChild($col)
@@ -382,13 +390,13 @@ function renderCardItems(cartObject) {
   $container.appendChild($total)
 
   const checkout = document.createElement('button')
-  checkout.setAttribute('class', 'btn btn-primary')
+  checkout.setAttribute('class', 'btn btn-primary shadow mx-1')
   checkout.setAttribute('id', 'checkout')
   checkout.textContent = 'Check Out'
   $container.appendChild(checkout)
 
   const cont = document.createElement('button')
-  cont.setAttribute('class', 'btn btn-secondary')
+  cont.setAttribute('class', 'btn btn-secondary shadow mx-1')
   cont.setAttribute('id', 'cont')
   cont.textContent = 'Continue Shopping'
   $container.appendChild(cont)
@@ -406,9 +414,8 @@ function renderCheckout(cart) {
   const $h4 = document.createElement('h4')
   $h4.classList.add('text-center')
   $h4.textContent = 'Checkout'
-
   const $form = document.createElement('div')
-  $form.setAttribute('class', 'form container shadow-sm w-50 p-5 mt-5 text-center')
+  $form.setAttribute('class', 'form container shadow w-50 p-5 mt-5 text-center')
   const $form1 = document.createElement('div')
   $form1.setAttribute('class', 'form-group')
   const $name = document.createElement('input')
@@ -433,14 +440,13 @@ function renderCheckout(cart) {
   $count.textContent = cart.length + ' Item(s)'
   const $total = document.createElement('div')
   $total.setAttribute('class', 'text-right')
-
   let total = 0
   for (let i = 0; i < cart.length; i++) {
     total += cart[i].price
     $total.textContent = 'Total: $' + total.toFixed(2)
   }
   const $button = document.createElement('button')
-  $button.setAttribute('class', 'btn btn-primary')
+  $button.setAttribute('class', 'btn btn-primary shadow')
   $button.setAttribute('id', 'confirmation')
   $button.setAttribute('type', 'button')
   $button.textContent = 'Place Order'
@@ -480,7 +486,8 @@ function renderConfirmation() {
   $footer.setAttribute('class', 'modal-footer')
   const $button1 = document.createElement('button')
   $button1.setAttribute('type', 'button')
-  $button1.setAttribute('class', 'btn btn-secondary mx-auto')
+  $button1.setAttribute('id', 'continiue')
+  $button1.setAttribute('class', 'btn btn-secondary shadow mx-auto')
   $button1.textContent = 'Continiue Shopping'
   $div1.appendChild($div2)
   $div2.appendChild($div3)
