@@ -129,8 +129,10 @@ function catalogBuilder(data) {
   $deck.setAttribute('class', 'card-deck')
   const rowDiv = document.createElement('div')
   rowDiv.setAttribute('class', 'row no-gutters')
+
   for (let i = 0; i < data.items.length; i++) {
     const $col = document.createElement('div')
+
     $col.setAttribute('class', 'col col-sm-3 col-md-3 col-sm-4 col-sm-6')
     $col.appendChild(singleCardBuilder(data.items[i]))
     rowDiv.appendChild($col)
@@ -158,6 +160,7 @@ function renderApp(state) {
     $view.innerHTML = ''
     $view.appendChild(renderCardItems(state.cart))
   }
+  
   if (state.view === 'checkout') {
     $view.innerHTML = ''
     $view.appendChild(renderCheckout(state.cart))
@@ -268,6 +271,19 @@ $details.addEventListener('click', function (e) {
   app.view = 'catalog'
   renderApp(app)
 })
+var $cart = document.getElementById('app')
+$cart.addEventListener('click', function (e) {
+  var shop = e.target.closest('#cart')
+  if (!shop) return
+  app.view = 'cart'
+  renderApp(app)
+})
+$cart.addEventListener('click', function (e) {
+  var continueShopping = e.target.closest('#cont')
+  if (!continueShopping) return
+  app.view = 'catalog'
+  renderApp(app)
+})
 
 const $cart = document.getElementById('app')
 $cart.addEventListener('click', function (e) {
@@ -318,14 +334,17 @@ function showView(view) {
 }
 
 function shoppingCart(cartObj) {
+
   const cart = document.createElement('div')
   cart.setAttribute('id', 'cart')
   const counter = cartObj.length
+
   cart.textContent = 'Cart (' + counter + ')'
   return cart
 }
 
 function renderSingleCartItem(cartItem) {
+
   const card = document.createElement('div')
   card.setAttribute('class', 'card w-100 shadow')
   card.setAttribute('data-item-id', cartItem.itemId)
@@ -384,10 +403,12 @@ function renderCardItems(cartObject) {
   const $total = document.createElement('div')
   $total.setAttribute('class', 'm-2')
   $total.textContent = 'Total: $' + total.toFixed(2)
+
   $container.appendChild($heading)
   $container.appendChild($col)
   $container.appendChild(count)
   $container.appendChild($total)
+
 
   const checkout = document.createElement('button')
   checkout.setAttribute('class', 'btn btn-primary shadow mx-1')
