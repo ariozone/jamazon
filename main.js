@@ -91,6 +91,36 @@ const app = {
   cart: []
 }
 
+function renderApp(state) {
+  const $view = document.querySelector('[data-view="' + state.view + '"]')
+  if (state.view === 'catalog') {
+    $view.innerHTML = ''
+    $view.appendChild(catalogBuilder(state.catalog))
+    $view.appendChild(shoppingCart(state.cart))
+  }
+
+  if (state.view === 'details') {
+    $view.innerHTML = ''
+    $view.appendChild(renderCatalogItem(state.details.item))
+    $view.appendChild(shoppingCart(state.cart))
+  }
+  if (state.view === 'cart') {
+    $view.innerHTML = ''
+    $view.appendChild(renderCardItems(state.cart))
+  }
+  if (state.view === 'checkout') {
+    $view.innerHTML = ''
+    $view.appendChild(renderCheckout(state.cart))
+  }
+  if (state.view === 'confirmation') {
+    $view.innerHTML = ''
+    $view.appendChild(renderConfirmation())
+  }
+
+  showView(state.view)
+}
+renderApp(app)
+
 function singleCardBuilder(info) {
   const card = document.createElement('div')
   card.setAttribute('class', 'card item-card p-3 mt-2 mx-1 shadow')
@@ -140,36 +170,6 @@ function catalogBuilder(data) {
   $deck.appendChild(rowDiv)
   return $container
 }
-
-function renderApp(state) {
-  const $view = document.querySelector('[data-view="' + state.view + '"]')
-  if (state.view === 'catalog') {
-    $view.innerHTML = ''
-    $view.appendChild(catalogBuilder(state.catalog))
-    $view.appendChild(shoppingCart(state.cart))
-  }
-
-  if (state.view === 'details') {
-    $view.innerHTML = ''
-    $view.appendChild(renderCatalogItem(state.details.item))
-    $view.appendChild(shoppingCart(state.cart))
-  }
-  if (state.view === 'cart') {
-    $view.innerHTML = ''
-    $view.appendChild(renderCardItems(state.cart))
-  }
-  if (state.view === 'checkout') {
-    $view.innerHTML = ''
-    $view.appendChild(renderCheckout(state.cart))
-  }
-  if (state.view === 'confirmation') {
-    $view.innerHTML = ''
-    $view.appendChild(renderConfirmation())
-  }
-
-  showView(state.view)
-}
-renderApp(app)
 
 function renderCatalogItem(catalogItem) {
   const styledCard = document.createElement('div')
@@ -231,6 +231,7 @@ function renderCatalogItem(catalogItem) {
   body.appendChild($h6)
   body.appendChild($button)
   body.appendChild($backButton)
+
   return styledCard
 }
 
@@ -241,6 +242,7 @@ function match(id, items) {
     }
   }
 }
+
 const $catalog = document.querySelector('[data-view = "catalog"]')
 $catalog.addEventListener('click', function (e) {
   const drum = e.target.closest('[data-item-id]')
@@ -262,6 +264,7 @@ $details.addEventListener('click', function (e) {
   renderApp(app)
 }
 )
+
 $details.addEventListener('click', function (e) {
   const back = e.target.closest('#back')
   if (!back) return
@@ -288,6 +291,7 @@ $cart.addEventListener('click', function (e) {
   app.view = 'checkout'
   renderApp(app)
 })
+
 const $confirm = document.querySelector('[data-view = "checkout"]')
 $confirm.addEventListener('click', function (e) {
   const confirmation = e.target.closest('#confirmation')
@@ -295,6 +299,7 @@ $confirm.addEventListener('click', function (e) {
   app.view = 'confirmation'
   renderApp(app)
 })
+
 const $continue = document.querySelector('[data-view = "confirmation"]')
 $continue.addEventListener('click', function (e) {
   const continiue = e.target.closest('#continiue')
