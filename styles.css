@@ -1,10 +1,9 @@
 .card-img {
-  height: 12rem;
-  width: 12rem;
+  height: 200px;
 }
 
 .item-card {
-  height: 25rem;
+  height: 450px;
   background-color: rgba(255, 250, 250, 0.701);
 }
 
@@ -21,12 +20,6 @@ h1 {
   color: rgb(182, 175, 175);
   font-family: 'Chango', cursive;
   font-size: 60px;
-}
-
-h4 {
-  color: rgb(182, 175, 175);
-  font-family: 'Chango', cursive;
-  font-size: 40px;
 }
 
 .hidden {
